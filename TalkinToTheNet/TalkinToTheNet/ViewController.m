@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "FourSquareKit.h"
-#import "MKNetworkKit.h"
+#import "APIManager.h"
+#import <CoreLocation/CoreLocation.h>
 
-
-@interface ViewController ()
-@property (nonatomic) UXRFourSquareNetworkingEngine *fourSquareEngine;
+@interface ViewController () <CLLocationManagerDelegate>
+@property CLLocationManager *locationManager;
+@property CLLocation *currentLocation;
 
 @end
 
@@ -20,29 +20,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self registerNetworkingEngine];
-    [self getNearbyTacoRestaurants];
+    [self setupLocationManager];
 }
 
--(void)registerNetworkingEngine{
-    NSString *yourClientId = @"RCPNIN1V5V5GCZ0F3RSFCNFIOD2K2240ZIW2ZANAOFIJWV1O";
-    NSString *yourClientSecret = @"4YZZKIM1UUUXTVG4K3RX2Y4BV3TIG2RZDIB1KUTJJJPCTK5G";
-    NSString *yourCallbackURl = @"http://google.com";
-    [UXRFourSquareNetworkingEngine registerFourSquareEngineWithClientId:yourClientId andSecret:yourClientSecret andCallBackURL:yourCallbackURl];
-    self.fourSquareEngine = [UXRFourSquareNetworkingEngine sharedInstance];
+#pragma mark - Location methods
+-(void)setupLocationManager{
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
 }
 
--(void)getNearbyTacoRestaurants{
-    NSString *locationString = @"Seattle";
-    NSString *query = @"tacos";
-    [self.fourSquareEngine exploreRestaurantsNearLocation:locationString
-                                                withQuery:query
-                                      withCompletionBlock:^(NSArray *restaurants) {
-                                          UXRFourSquareRestaurantModel *restaurantModel = (UXRFourSquareRestaurantModel *)restaurants[0];
-                                          NSLog(@"%@",restaurantModel);
-                                      } failureBlock:^(NSError *error) {
-                                          // Error
-                                      }];
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    self.currentLocation = [locations lastObject];
 }
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [errorAlert show];
+    NSLog(@"Error: %@",error.description);
+}
+
+-(void)makeFoursquareRequestWithSearchTerm:(NSString *)searchTerm ForLocation:(CLLocation *)location WithCallbackBlock:(void(^)())block{
+    
+    NSString *latitude = [NSString stringWithFormat:@"%.1f",location.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%.1f",location.coordinate.longitude];
+
+    NSString *urlString = [NSString stringWithFormat: @"https://api.foursquare.com/v2/venues/search?client_id=RCPNIN1V5V5GCZ0F3RSFCNFIOD2K2240ZIW2ZANAOFIJWV1O&client_secret=4YZZKIM1UUUXTVG4K3RX2Y4BV3TIG2RZDIB1KUTJJJPCTK5G&v=20130815&ll=%@,%@&query=%@",latitude,longitude, searchTerm];
+    NSString *encodedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSURL *url = [NSURL URLWithString:encodedString];
+    
+    [APIManager GETRequestWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (data != nil){
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        }
+    }];
+    
+    block();
+}
+
 
 @end
