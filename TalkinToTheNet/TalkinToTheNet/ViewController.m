@@ -9,10 +9,18 @@
 #import "ViewController.h"
 #import "APIManager.h"
 #import <CoreLocation/CoreLocation.h>
+#import "C4QRestaurant.h"
 
-@interface ViewController () <CLLocationManagerDelegate>
+@interface ViewController () <CLLocationManagerDelegate, UITextFieldDelegate>
+
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
+
+@property (weak, nonatomic) IBOutlet UILabel *latLabel;
+@property (weak, nonatomic) IBOutlet UILabel *longLabel;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+
+@property (nonatomic) NSMutableArray *restaurants;
 
 @end
 
@@ -21,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLocationManager];
+    
+    self.searchTextField.delegate = self;
 }
 
 #pragma mark - Location methods
@@ -36,6 +46,8 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     self.currentLocation = [locations lastObject];
+    self.latLabel.text =  [NSString stringWithFormat:@"%f.1f", self.currentLocation.coordinate.latitude];
+     self.longLabel.text =  [NSString stringWithFormat:@"%f.1f", self.currentLocation.coordinate.longitude];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
@@ -43,6 +55,24 @@
     [errorAlert show];
     NSLog(@"Error: %@",error.description);
 }
+
+#pragma mark - textfield delegate methods
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [self makeFoursquareRequestWithSearchTerm:textField.text ForLocation:self.currentLocation WithCallbackBlock:^{
+        for (C4QRestaurant *restuarant in self.restaurants) {
+            NSLog(@"%@",restuarant.name);
+        }
+        
+    }];
+    //dismisses the keyboard
+    [self.view endEditing:YES];
+    
+    return YES;
+}
+
+#pragma mark - search methods
 
 -(void)makeFoursquareRequestWithSearchTerm:(NSString *)searchTerm ForLocation:(CLLocation *)location WithCallbackBlock:(void(^)())block{
     
@@ -55,10 +85,18 @@
     
     [APIManager GETRequestWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (data != nil){
+            
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSDictionary *venues = [[json objectForKey:@"response"] objectForKey:@"venues"];
+            
+            self.restaurants = [[NSMutableArray alloc] init];
+            for (NSDictionary *venue in venues)  {
+                C4QRestaurant *restaurant = [[C4QRestaurant alloc] init];
+                restaurant.name = [venue objectForKey: @"name"];
+                [self.restaurants addObject:restaurant];
+            }
         }
     }];
-    
     block();
 }
 

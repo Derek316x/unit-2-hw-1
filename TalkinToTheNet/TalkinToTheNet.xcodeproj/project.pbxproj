@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		69E41EF71BB0F5F600D7324C /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E41EF61BB0F5F600D7324C /* APIManager.m */; settings = {ASSET_TAGS = (); }; };
 		69E420171BB10B3D00D7324C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E420161BB10B3D00D7324C /* CoreLocation.framework */; };
+		69E4201A1BB1BC1F00D7324C /* C4QRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E420191BB1BC1F00D7324C /* C4QRestaurant.m */; settings = {ASSET_TAGS = (); }; };
 		8D7DCD4B1BAF859400A92AD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DCD4A1BAF859400A92AD2 /* main.m */; };
 		8D7DCD4E1BAF859400A92AD2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DCD4D1BAF859400A92AD2 /* AppDelegate.m */; };
 		8D7DCD511BAF859400A92AD2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DCD501BAF859400A92AD2 /* ViewController.m */; };
@@ -21,6 +22,8 @@
 		69E41EF51BB0F5F600D7324C /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		69E41EF61BB0F5F600D7324C /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		69E420161BB10B3D00D7324C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		69E420181BB1BC1F00D7324C /* C4QRestaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C4QRestaurant.h; sourceTree = "<group>"; };
+		69E420191BB1BC1F00D7324C /* C4QRestaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = C4QRestaurant.m; sourceTree = "<group>"; };
 		8D7DCD461BAF859400A92AD2 /* TalkinToTheNet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkinToTheNet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D7DCD4A1BAF859400A92AD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D7DCD4C1BAF859400A92AD2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -67,6 +70,8 @@
 			children = (
 				8D7DCD4C1BAF859400A92AD2 /* AppDelegate.h */,
 				8D7DCD4D1BAF859400A92AD2 /* AppDelegate.m */,
+				69E420181BB1BC1F00D7324C /* C4QRestaurant.h */,
+				69E420191BB1BC1F00D7324C /* C4QRestaurant.m */,
 				69E41EF51BB0F5F600D7324C /* APIManager.h */,
 				69E41EF61BB0F5F600D7324C /* APIManager.m */,
 				8D7DCD4F1BAF859400A92AD2 /* ViewController.h */,
@@ -159,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69E41EF71BB0F5F600D7324C /* APIManager.m in Sources */,
+				69E4201A1BB1BC1F00D7324C /* C4QRestaurant.m in Sources */,
 				8D7DCD511BAF859400A92AD2 /* ViewController.m in Sources */,
 				8D7DCD4E1BAF859400A92AD2 /* AppDelegate.m in Sources */,
 				8D7DCD4B1BAF859400A92AD2 /* main.m in Sources */,
