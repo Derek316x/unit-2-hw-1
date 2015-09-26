@@ -11,7 +11,12 @@
 @interface C4QRestaurant : NSObject
 
 @property NSString *name;
+@property NSString *phoneNumber;
+
 @property NSString *address;
+@property NSString *buildingNumber;
+@property NSString *street;
+@property NSString *zipcode;
 
 @property NSInteger *ratCount;
 @property NSInteger *roachCount;

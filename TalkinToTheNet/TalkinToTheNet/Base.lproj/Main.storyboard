@@ -38,21 +38,39 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rVE-6T-lpB">
+                                <rect key="frame" x="0.0" y="58" width="600" height="542"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantCellIdentifier" id="8ZE-mZ-GbP">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8ZE-mZ-GbP" id="jXD-DL-AUt">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="egU-tF-nDP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3ED-aO-3az"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rVE-6T-lpB" secondAttribute="bottom" id="9gA-Pc-gsO"/>
                             <constraint firstItem="Fnv-69-TNa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BeO-fM-eM1"/>
                             <constraint firstItem="egU-tF-nDP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GBJ-1l-WBX"/>
+                            <constraint firstAttribute="trailing" secondItem="rVE-6T-lpB" secondAttribute="trailing" id="JhH-kK-0eu"/>
                             <constraint firstItem="OFP-FP-VsM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Y0U-zC-1V6"/>
                             <constraint firstItem="OFP-FP-VsM" firstAttribute="top" secondItem="egU-tF-nDP" secondAttribute="bottom" constant="56.5" id="bGj-bC-OX6"/>
                             <constraint firstItem="Fnv-69-TNa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="enU-6m-5yi"/>
                             <constraint firstItem="egU-tF-nDP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="l85-Bj-jty"/>
                             <constraint firstItem="OFP-FP-VsM" firstAttribute="leading" secondItem="egU-tF-nDP" secondAttribute="trailing" constant="39" id="mcg-cz-l9T"/>
+                            <constraint firstItem="rVE-6T-lpB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="u4F-nT-iyc"/>
                             <constraint firstItem="Fnv-69-TNa" firstAttribute="leading" secondItem="OFP-FP-VsM" secondAttribute="trailing" constant="40" id="vma-0r-7Vu"/>
                             <constraint firstItem="egU-tF-nDP" firstAttribute="centerY" secondItem="OFP-FP-VsM" secondAttribute="centerY" id="yRK-KI-4b6"/>
                             <constraint firstItem="Fnv-69-TNa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yZB-jf-LuE"/>
                             <constraint firstItem="egU-tF-nDP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="zej-0u-7Av"/>
+                            <constraint firstItem="rVE-6T-lpB" firstAttribute="top" secondItem="Fnv-69-TNa" secondAttribute="bottom" constant="8" id="zrc-ra-Hki"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -69,6 +87,7 @@
                         <outlet property="latLabel" destination="egU-tF-nDP" id="Ns4-cU-eQK"/>
                         <outlet property="longLabel" destination="OFP-FP-VsM" id="mnw-q7-lMk"/>
                         <outlet property="searchTextField" destination="Fnv-69-TNa" id="pPq-MO-t7b"/>
+                        <outlet property="tableView" destination="rVE-6T-lpB" id="Fzu-p3-glC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
